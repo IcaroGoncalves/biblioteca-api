@@ -1,19 +1,50 @@
-biblioteca-api
+# biblioteca‑api
 
-📚 API de gerenciamento de biblioteca construída com Spring Boot, Java 21 e DDD.
+> 📚 **Biblioteca API** — Gerencie livros, autores, usuários, empréstimos e reservas em Java 21 + Spring Boot.
 
-Lenda alert! Projeto modular por feature (package-by-feature) seguindo Domain‑Driven Design e Clean Architecture.
+---
 
-🎯 Visão Geral
+## 🎯 Visão Geral
 
-Esta API (biblioteca-api) gerencia um sistema de biblioteca, controlando:
+Esta API modular segue **Domain‑Driven Design** e **package‑by‑feature**, com camadas limpas:
 
-📖 Livros (título, ISBN, ano, exemplares)
+- **autor**: cadastro de autores  
+- **book**: cadastro de livros  
+- **loan**: controle de empréstimos  
+- **user**: cadastro de usuários  
 
-🧑‍🏫 Autores
+Cada feature contém:
+- `model` / entidade JPA  
+- `dto` / transferência de dados  
+- `repository` / interface Spring Data  
+- `service` / regras de negócio  
+- `controller` / endpoints REST  
 
-👥 Usuários (leitores e admins)
+---
 
-📅 Empréstimos
+## 📦 Estrutura de Pacotes
 
-🔖 Reservas
+```text
+src
+└── main
+    └── java
+        └── com.biblio.biblioteca_api
+            ├── autor
+            │   ├── Autor.java
+            │   └── AutorService.java
+            ├── book
+            │   ├── Book.java
+            │   ├── BookDTO.java
+            │   ├── BookRepository.java
+            │   └── BookService.java
+            ├── loan
+            │   ├── Loan.java
+            │   ├── LoanDTO.java
+            │   ├── LoanRepository.java
+            │   └── LoanService.java
+            ├── user
+            │   ├── Usuario.java
+            │   ├── UsuarioDTO.java
+            │   ├── UsuarioRepository.java
+            │   └── UsuarioService.java
+            └── BibliotecaApiApplication.java
