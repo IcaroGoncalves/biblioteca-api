@@ -49,6 +49,8 @@ src
             │   └── UsuarioService.java
             └── BibliotecaApiApplication.java
 
+```
+
 ### Requisição GET paginada para listar todos os livros
 
 ```bash
@@ -79,4 +81,3 @@ curl -X GET "http://localhost:8080/api/books?page=0&size=10&sort=titulo,asc" \
   "number": 0,
   "size": 10
 }
-
