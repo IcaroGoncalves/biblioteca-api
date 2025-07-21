@@ -11,7 +11,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class Book {
-
     @Id
     @GeneratedValue
     @Column(columnDefinition = "UUID")
