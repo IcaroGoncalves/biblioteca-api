@@ -81,3 +81,25 @@ curl -X GET "http://localhost:8080/api/books?page=0&size=10&sort=titulo,asc" \
   "number": 0,
   "size": 10
 }
+```
+### Requisição POST para inserção de livro
+
+```bash
+curl -X POST "http://localhost:8080/api/books" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "title": "O Senhor dos Anéis",
+           "isbn": "9780261102385",
+           "yearPublication": 1954,
+           "copiesAvailable": 10
+         }'
+
+
+{
+  "id": "f1a2b3c4-d5e6-47f8-9abc-def012345678",
+  "title": "O Senhor dos Anéis",
+  "isbn": "9780261102385",
+  "yearPublication": 1954,
+  "copiesAvailable": 10
+}
+
