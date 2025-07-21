@@ -13,8 +13,16 @@ public class BookService {
 
     private final BookRepository bookRepo;
 
+
+    public Book create(Book book){
+        bookRepo.findByIsbn(book.getIsbn())
+                .ifPresent(b ->{throw new IllegalArgumentException("The inserted book is already cataloged." + book.getIsbn()); });
+        return  bookRepo.save(book);
+    }
+
     @Transactional(readOnly = true)
     public Page<Book> listAll(Pageable pageable){
         return bookRepo.findAll(pageable);
     }
+
 }
