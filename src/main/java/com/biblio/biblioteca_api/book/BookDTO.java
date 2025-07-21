@@ -24,4 +24,14 @@ public class BookDTO {
                 .copiesAvailable(book.getCopiesAvailable())
                 .build();
     }
+
+    public Book toEntity(){
+        return Book.builder()
+                .title(title)
+                .isbn(isbn)
+                .yearPublication(yearPublication)
+                .copiesAvailable(copiesAvailable)
+                .build();
+
+    }
 }
