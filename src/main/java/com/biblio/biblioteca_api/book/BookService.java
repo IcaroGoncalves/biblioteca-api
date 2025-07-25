@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.UUID;
 
 
 @Service
@@ -24,5 +24,22 @@ public class BookService {
     public Page<Book> listAll(Pageable pageable){
         return bookRepo.findAll(pageable);
     }
+
+
+    public Book update(UUID id, Book updatedBook){
+        Book existing = bookRepo.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Book not found:" + id));
+        bookRepo.findByIsbn(updatedBook.getIsbn())
+                .filter(b -> !b.getId().equals(id))
+                .ifPresent(b -> {
+                    throw new IllegalArgumentException("ISBN already in use: " + updatedBook.getIsbn());
+                });
+        existing.setTitle(updatedBook.getTitle());
+        existing.setIsbn(updatedBook.getIsbn());
+        existing.setYearPublication(updatedBook.getYearPublication());
+        existing.setCopiesAvailable(updatedBook.getCopiesAvailable());
+        return bookRepo.save(existing);
+    }
+
 
 }
