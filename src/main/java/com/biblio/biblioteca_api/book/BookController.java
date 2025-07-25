@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.UUID;
 
 
 @RestController
@@ -29,6 +30,13 @@ public class BookController {
         return ResponseEntity
                 .created(URI.create("/api/books/" + save.getId()))
                 .body(response);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO>update(@PathVariable UUID id, @RequestBody @Valid BookDTO dto){
+         Book updatedEntity = dto.toEntity();
+         Book saved = book.update(id,updatedEntity);
+         BookDTO response = BookDTO.fromEntity(saved);
+         return ResponseEntity.ok(response);
     }
 
 }
