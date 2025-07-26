@@ -41,5 +41,11 @@ public class BookService {
         return bookRepo.save(existing);
     }
 
+    @Transactional
+    public void delete(UUID id){
+        Book existing = bookRepo.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Book not found:"+ id));
+        bookRepo.delete(existing);
+    }
 
 }
