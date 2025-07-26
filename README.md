@@ -94,7 +94,7 @@ curl -X POST "http://localhost:8080/api/books" \
            "copiesAvailable": 10
          }'
 
-
+exemplo de resposta
 {
   "id": "f1a2b3c4-d5e6-47f8-9abc-def012345678",
   "title": "O Senhor dos Anéis",
@@ -102,4 +102,31 @@ curl -X POST "http://localhost:8080/api/books" \
   "yearPublication": 1954,
   "copiesAvailable": 10
 }
+```
+### Requisição PUT de atualização de livro
 
+```bash
+curl -X PUT "http://localhost:8080/api/books/{id}" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "title": "Novo Título",
+           "isbn": "9780261102385",
+           "yearPublication": 1955,
+           "copiesAvailable": 12
+         }'
+Exemplo de resposta
+{
+  "id": "{id}",
+  "title": "Novo Título",
+  "isbn": "9780261102385",
+  "yearPublication": 1955,
+  "copiesAvailable": 12
+}
+
+```
+### Requisição DELETE para exclusão de livros
+```bash
+curl -X DELETE "http://localhost:8080/api/books/{id}"
+exemplo de resposta
+
+Status: 204 No Content
