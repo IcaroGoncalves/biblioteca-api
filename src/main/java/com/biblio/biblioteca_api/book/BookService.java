@@ -13,7 +13,7 @@ public class BookService {
 
     private final BookRepository bookRepo;
 
-
+    @Transactional
     public Book create(Book book){
         bookRepo.findByIsbn(book.getIsbn())
                 .ifPresent(b ->{throw new IllegalArgumentException("The inserted book is already cataloged." + book.getIsbn()); });
@@ -25,7 +25,7 @@ public class BookService {
         return bookRepo.findAll(pageable);
     }
 
-
+    @Transactional
     public Book update(UUID id, Book updatedBook){
         Book existing = bookRepo.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Book not found:" + id));
