@@ -17,11 +17,18 @@ public class BookController {
     private final BookService book;
 
     @GetMapping
-    public ResponseEntity<Page<BookDTO>> list(Pageable pageable){
-        Page<Book> page = book.listAll(pageable);
+    public ResponseEntity<Page<BookDTO>> list(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String isbn,
+            @RequestParam(required = false) String category,
+            Pageable pageable
+    ){
+        Page<Book> page = book.search(title, isbn, category, pageable);
         Page<BookDTO> dtoPage = page.map(BookDTO::fromEntity);
         return ResponseEntity.ok(dtoPage);
     }
+
+
     @PostMapping
     public ResponseEntity<BookDTO>create(@RequestBody @Valid BookDTO bookDTO){
         Book bookEntity = bookDTO.toEntity();

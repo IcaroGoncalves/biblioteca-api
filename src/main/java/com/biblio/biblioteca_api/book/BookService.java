@@ -2,10 +2,11 @@ package com.biblio.biblioteca_api.book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 import java.util.UUID;
-
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,16 @@ public class BookService {
         bookRepo.findByIsbn(book.getIsbn())
                 .ifPresent(b ->{throw new IllegalArgumentException("The inserted book is already cataloged." + book.getIsbn()); });
         return  bookRepo.save(book);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Book> search(String title, String isbn, String category, Pageable pageable) {
+        Specification<Book> spec = Specification.allOf(List.of(
+                BookSpecs.titleContains(title),
+                BookSpecs.isbnEquals(isbn),
+                BookSpecs.hasCategory(category)
+        ));
+        return bookRepo.findAll(spec, pageable);
     }
 
     @Transactional(readOnly = true)

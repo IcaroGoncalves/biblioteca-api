@@ -1,7 +1,11 @@
 package com.biblio.biblioteca_api.book;
 
+import com.biblio.biblioteca_api.category.Category;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,4 +31,14 @@ public class Book {
 
     @Column(name = "copies_available")
     private Integer copiesAvailable;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "book_category",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories = new HashSet<>();
+
 }
